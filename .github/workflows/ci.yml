@@ -16,11 +16,14 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
         cache: true
 
     - name: Restore dependencies
       run: dotnet restore
+
+    - name: Check code formatting
+      run: dotnet format --verify-no-changes
 
     - name: Build
       run: dotnet build --configuration Release --no-restore
@@ -78,4 +81,3 @@ jobs:
           Status: ${{ steps.coverage-percentage.outputs.coverage > 90 && 'PASSED' || 'FAILED' }}
           
           ${{ steps.coverage-percentage.outputs.coverage > 90 && 'This PR meets the coverage requirement!' || 'This PR does NOT meet the 90% coverage requirement! Please add more tests!' }}
-          
