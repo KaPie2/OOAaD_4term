@@ -4,15 +4,15 @@ using Xunit;
 
 namespace SpaceBattle.Lib.Tests;
 
-public class SimpleMacroCommandTests
+public class MacroCommandTests
 {
     [Fact]
-    public void SimpleMacroCommand_ExecuteAllCommands()
+    public void MacroCommand_ExecuteAllCommands()
     {
         // Arrange
         var cmd1 = new Mock<ICommand>();
         var cmd2 = new Mock<ICommand>();
-        var macro = new SimpleMacroCommand(new ICommand[] { cmd1.Object, cmd2.Object });
+        var macro = new MacroCommand(new ICommand[] { cmd1.Object, cmd2.Object });
 
         // Act
         macro.Execute();
@@ -23,7 +23,7 @@ public class SimpleMacroCommandTests
     }
 
     [Fact]
-    public void SimpleMacroCommand_ThrowsIfOneFails_RemainingNotExecuted()
+    public void MacroCommand_ThrowsIfOneFails_RemainingNotExecuted()
     {
         // Arrange
         var cmd1 = new Mock<ICommand>();
@@ -31,7 +31,7 @@ public class SimpleMacroCommandTests
         cmd2.Setup(c => c.Execute()).Throws<InvalidOperationException>();
         var cmd3 = new Mock<ICommand>();
 
-        var macro = new SimpleMacroCommand(new ICommand[] { cmd1.Object, cmd2.Object, cmd3.Object });
+        var macro = new MacroCommand(new ICommand[] { cmd1.Object, cmd2.Object, cmd3.Object });
 
         // Act
         Assert.Throws<InvalidOperationException>(() => macro.Execute());
