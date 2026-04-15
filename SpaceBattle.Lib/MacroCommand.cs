@@ -2,7 +2,7 @@ using System.Windows.Input;
 
 namespace SpaceBattle.Lib;
 
-public class MacroCommand: ICommand
+public class MacroCommand : ICommand
 {
     private readonly ICommand[] _commands;
     public MacroCommand(ICommand[] commands)
