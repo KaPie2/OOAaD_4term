@@ -1,0 +1,5 @@
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\ICommand\obj\Debug\net8.0\ICommand.GeneratedMSBuildEditorConfig.editorconfig
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\ICommand\obj\Debug\net8.0\ICommand.AssemblyInfoInputs.cache
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\ICommand\obj\Debug\net8.0\ICommand.AssemblyInfo.cs
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\ICommand\obj\Debug\net8.0\ICommand.csproj.CoreCompileInputs.cache
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\ICommand\obj\Debug\net8.0\ICommand.sourcelink.json
