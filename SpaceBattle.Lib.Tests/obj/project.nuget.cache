@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "gJCQCOHi7Eo=",
+  "dgSpecHash": "32MpmlATHpQ=",
   "success": true,
   "projectFilePath": "D:\\My files\\ОмГТУ\\4 семестр\\Объектно-ориентированный анализ и проектирование\\OOAaD_4term\\SpaceBattle.Lib.Tests\\SpaceBattle.Lib.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pirog\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
-    "C:\\Users\\pirog\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
+    "C:\\Users\\pirog\\.nuget\\packages\\coverlet.collector\\8.0.1\\coverlet.collector.8.0.1.nupkg.sha512",
     "C:\\Users\\pirog\\.nuget\\packages\\microsoft.codecoverage\\17.12.0\\microsoft.codecoverage.17.12.0.nupkg.sha512",
     "C:\\Users\\pirog\\.nuget\\packages\\microsoft.net.test.sdk\\17.12.0\\microsoft.net.test.sdk.17.12.0.nupkg.sha512",
     "C:\\Users\\pirog\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.12.0\\microsoft.testplatform.objectmodel.17.12.0.nupkg.sha512",
