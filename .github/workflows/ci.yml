@@ -44,7 +44,7 @@ jobs:
     - name: Extract coverage percentage
       id: coverage-percentage
       run: |
-        COVERAGE_PERCENTAGE=$(grep -E 'Line coverage:' coveragereport/SummaryGithub.md | grep -Eo '[0-9.]+' | head -1)
+        COVERAGE_PERCENTAGE=$(grep -E '^\|\s*\*\*Line coverage\*\*:\s*\|' coveragereport/SummaryGithub.md | grep -Eo '[0-9]+(\.[0-9]+)?' | head -1)
         
         if [ -z "$COVERAGE_PERCENTAGE" ]; then
           COVERAGE_PERCENTAGE=0
