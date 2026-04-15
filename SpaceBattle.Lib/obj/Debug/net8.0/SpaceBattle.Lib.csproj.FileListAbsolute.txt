@@ -1,0 +1,12 @@
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.GeneratedMSBuildEditorConfig.editorconfig
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.AssemblyInfoInputs.cache
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.AssemblyInfo.cs
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.csproj.CoreCompileInputs.cache
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.sourcelink.json
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\bin\Debug\net8.0\SpaceBattle.Lib.deps.json
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\bin\Debug\net8.0\SpaceBattle.Lib.dll
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\bin\Debug\net8.0\SpaceBattle.Lib.pdb
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.dll
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\refint\SpaceBattle.Lib.dll
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\SpaceBattle.Lib.pdb
+D:\My files\ОмГТУ\4 семестр\Объектно-ориентированный анализ и проектирование\OOAaD_4term\SpaceBattle.Lib\obj\Debug\net8.0\ref\SpaceBattle.Lib.dll
