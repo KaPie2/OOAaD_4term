@@ -5,6 +5,10 @@ on:
     branches: [ main ]
     types: [ opened, synchronize, reopened ]
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -29,20 +33,53 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test with coverage
-      run: dotnet test --no-build --collect:"XPlat Code Coverage" --results-directory:coverage
+      run: dotnet test --collect:"XPlat Code Coverage" --results-directory:coverage
 
-    - name: Code Coverage Summary
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      with:
-        filename: coverage/**/coverage.cobertura.xml
-        badge: true
-        format: markdown
-        output: both
-        fail_below_min: 90
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 5.3.8
 
-    - name: Add Coverage PR Comment
+    - name: Generate coverage report
+      run: |
+        reportgenerator \
+        -reports:"coverage/**/coverage.cobertura.xml" \
+        -targetdir:"coveragereport" \
+        -reporttypes:"HtmlInline;MarkdownSummaryGithub"
+
+    - name: Extract coverage percentage
+      id: coverage-percentage
+      run: |
+        COVERAGE_PERCENTAGE=$(grep -E 'Line coverage' coveragereport/SummaryGithub.md | grep -Eo '[0-9]+' | head -1)
+
+        if [ -z "$COVERAGE_PERCENTAGE" ]; then
+          COVERAGE_PERCENTAGE=0
+        fi
+
+        echo "coverage=$COVERAGE_PERCENTAGE" >> $GITHUB_OUTPUT
+        echo "Coverage: $COVERAGE_PERCENTAGE%"
+
+    - name: Check coverage threshold
+      run: |
+        COVERAGE=${{ steps.coverage-percentage.outputs.coverage }}
+        THRESHOLD=90
+        
+        if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
+          echo "Coverage is $COVERAGE%, which is below the required $THRESHOLD%"
+          exit 1
+        else
+          echo "Coverage is $COVERAGE%, satisfies the coverage condition (> $THRESHOLD%)"
+        fi
+
+    - name: Comment PR with coverage report
+      if: github.event_name == 'pull_request'
       uses: marocchino/sticky-pull-request-comment@v2
-      if: always()
       with:
-        recreate: true
-        path: code-coverage-results.md
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: coverage-report
+        message: |
+          Code Coverage Report
+          
+          Line Coverage: ${{ steps.coverage-percentage.outputs.coverage }}%
+          Threshold Required: 90%
+          Status: ${{ steps.coverage-percentage.outputs.coverage > 90 && 'PASSED' || 'FAILED' }}
+          
+          ${{ steps.coverage-percentage.outputs.coverage > 90 && 'This PR meets the coverage requirement!' || 'This PR does NOT meet the 90% coverage requirement! Please add more tests!' }}
