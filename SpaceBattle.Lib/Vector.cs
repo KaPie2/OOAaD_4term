@@ -2,8 +2,8 @@
 
 public class NVector
 {
-    public int[] coords {get; set;}
-    public int dim {get; set;}
+    public int[] coords { get; set; }
+    public int dim { get; set; }
 
     public NVector(int[] coords)
     {
@@ -58,5 +58,10 @@ public class NVector
         if (!this.coords.SequenceEqual(other.coords)) return false;
 
         return true;
+    }
+
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
     }
 }
