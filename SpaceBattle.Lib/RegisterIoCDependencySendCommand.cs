@@ -3,11 +3,11 @@ using App.Scopes;
 
 namespace SpaceBattle.Lib;
 
-public class RegisterIoCDependencySendCommand : ICommand  
+public class RegisterIoCDependencySendCommand : ICommand
 {
     public void Execute()
     {
-        var registerDependencyCommand = Ioc.Resolve<App.ICommand>(  
+        var registerDependencyCommand = Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Commands.Send",
             (object[] args) =>
@@ -17,7 +17,7 @@ public class RegisterIoCDependencySendCommand : ICommand
                 return new SendCommand(command, receiver);
             }
         );
-        
-        registerDependencyCommand.Execute();  
+
+        registerDependencyCommand.Execute();
     }
 }
