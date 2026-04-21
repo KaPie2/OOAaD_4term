@@ -1,5 +1,3 @@
-using System.Windows.Input;
-
 namespace SpaceBattle.Lib;
 
 public class MacroCommand : ICommand
