@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace SpaceBattle.Lib;
 
+[ExcludeFromCodeCoverage]
 public class CommandInjectableCommand : ICommand, ICommandInjectable
 {
     private ICommand? _command;
