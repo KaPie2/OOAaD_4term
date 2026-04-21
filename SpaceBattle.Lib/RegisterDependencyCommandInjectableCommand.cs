@@ -15,7 +15,7 @@ public class RegisterDependencyCommandInjectableCommand : ICommand
                 return new CommandInjectableCommand();
             }
         );
-        
+
         registerCommand.Execute();
     }
 }
