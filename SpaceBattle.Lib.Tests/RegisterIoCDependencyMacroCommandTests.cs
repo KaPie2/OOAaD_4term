@@ -1,7 +1,6 @@
 using Moq;
-using Xunit;
-using App.Scopes;
 using App;
+using App.Scopes;
 
 namespace SpaceBattle.Lib.Tests;
 
@@ -13,22 +12,23 @@ public class RegisterIoCDependencyMacroCommandTests
     }
 
     [Fact]
-    public void RegisterDependencyMacroCommand_ResolveDependency()
+    public void RegisterMacroCommand_ResolvesDependency()
     {
         // Arrange
-        Mock<ICommand> cmd1 = new Mock<ICommand>();
-        Mock<ICommand> cmd2 = new Mock<ICommand>();
-        var commands = new[] { cmd1.Object, cmd2.Object };
+        var cmd1 = new Mock<ICommand>();
+        var cmd2 = new Mock<ICommand>();
+        var commands = new ICommand[] { cmd1.Object, cmd2.Object };
 
         // Act
-        new RegisterIoCDependencyMacroCommand().Execute();
-        var macro = Ioc.Resolve<ICommand>("Commands.Macro", commands);
+        var registerCommand = new RegisterIoCDependencyMacroCommand();
+        registerCommand.Execute();
+        var macro = Ioc.Resolve<ICommand>("Commands.Macro", (object)commands);
 
         // Assert
         Assert.NotNull(macro);
         macro.Execute();
 
-        cmd1.Verify(c => c.Execute(), Times.Once());
-        cmd2.Verify(c => c.Execute(), Times.Once());
+        cmd1.Verify(c => c.Execute(), Times.Once);
+        cmd2.Verify(c => c.Execute(), Times.Once);
     }
 }
