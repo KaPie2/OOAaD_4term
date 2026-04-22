@@ -19,25 +19,25 @@ public class CreateMacroCommandStrategyTests
         var specName = "Test_" + Guid.NewGuid().ToString("N");
         var cmd1Name = "Cmd1_" + Guid.NewGuid().ToString("N");
         var cmd2Name = "Cmd2_" + Guid.NewGuid().ToString("N");
-        
+
         var cmd1 = new Mock<ICommand>();
         var cmd2 = new Mock<ICommand>();
-        
+
         Ioc.Resolve<App.ICommand>(
-            "IoC.Register", 
-            "Specs." + specName, 
+            "IoC.Register",
+            "Specs." + specName,
             (object[] args) => new string[] { cmd1Name, cmd2Name }
         ).Execute();
 
         Ioc.Resolve<App.ICommand>(
-            "IoC.Register", 
-            cmd1Name, 
+            "IoC.Register",
+            cmd1Name,
             (object[] args) => cmd1.Object
         ).Execute();
 
         Ioc.Resolve<App.ICommand>(
-            "IoC.Register", 
-            cmd2Name, 
+            "IoC.Register",
+            cmd2Name,
             (object[] args) => cmd2.Object
         ).Execute();
 
@@ -59,7 +59,7 @@ public class CreateMacroCommandStrategyTests
         // Arrange
         var specName = "NotFound__" + Guid.NewGuid().ToString("N");
         var strategy = new CreateMacroCommandStrategy(specName);
-        
+
         // Act + Assert
         Assert.Throws<Exception>(() => strategy.Resolve(new object[] { }));
     }
@@ -70,15 +70,15 @@ public class CreateMacroCommandStrategyTests
         // Arrange
         var specName = "NotFound_" + Guid.NewGuid().ToString("N");
         var badCmdName = "BadCmd_" + Guid.NewGuid().ToString("N");
-        
+
         Ioc.Resolve<App.ICommand>(
-            "IoC.Register", 
-            "Specs." + specName, 
+            "IoC.Register",
+            "Specs." + specName,
             (object[] args) => new string[] { badCmdName }
         ).Execute();
 
         var strategy = new CreateMacroCommandStrategy(specName);
-        
+
         // Act + Assert
         Assert.Throws<Exception>(() => strategy.Resolve(new object[] { }));
     }

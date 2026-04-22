@@ -13,7 +13,7 @@ public class CreateMacroCommandStrategy
     {
         var commandNames = Ioc.Resolve<string[]>($"Specs.{_commandSpec}");
         var commands = commandNames.Select(name => (ICommand)Ioc.Resolve<object>(name, args)).ToArray();
-        
+
         return new MacroCommand(commands);
     }
 }
