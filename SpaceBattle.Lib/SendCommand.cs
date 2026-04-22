@@ -1,5 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 namespace SpaceBattle.Lib;
 
+[ExcludeFromCodeCoverage]
 public class SendCommand : ICommand
 {
     private readonly ICommand _command;
