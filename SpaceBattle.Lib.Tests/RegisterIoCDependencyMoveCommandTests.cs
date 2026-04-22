@@ -1,36 +1,49 @@
 using System.Windows.Input;
+using App;
 using App.Scopes;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Lib.Tests;
 
-public class RegisterIoCDependencyMoveCommandTests
+public class RegisterIoCDependencyMoveCommandTests 
 {
+    public RegisterIoCDependencyMoveCommandTests()
+    {
+        new InitCommand().Execute();
+    }
+
     [Fact]
     public void RegisterIoCDependencyMoveCommand_IsResolvingDependency()
     {
-        new RegisterIoCDependencyMoveCommand.Execute();
-
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<ICommand>("Commands.MoveCommand").Execute();
-
-
-        var commandMock = new Mock<ICommand>();
-        var cmd = commandMock.Object;
-
-        var movObject = new Mock<IMovingObject>();
-        var movObj = movObject.Object;
-
-        Ioc.Resolve<ICommand>(
-            "IoC.Register",
-            "Commands.MoveCommand",
-            (object[] args) => movObj
+        Ioc.Resolve<App.ICommand>(
+        "IoC.Register",
+        "Adapters.IMovingObject",
+        (object[] args) =>
+        {
+            var dict = (IDictionary<string, object>)args[0];
+            
+            var mock = new Mock<IMovingObject>();
+            if (dict.ContainsKey("Position"))
+                mock.Setup(m => m.Position).Returns((NVector)dict["Position"]);
+            if (dict.ContainsKey("Velocity"))
+                mock.Setup(m => m.Velocity).Returns((NVector)dict["Velocity"]);
+                
+            return mock.Object;
+        }
         ).Execute();
 
-        new MoveCommand(cmd).Execute();
+        new RegisterIoCDependencyMoveCommand().Execute();
 
-        commandReceiveMock.Verify(r => r.Execute(cmd), Times.Once());
+        var movingObjectDict = new Dictionary<string, object>
+        {
+            { "Position", new NVector(new int[]{0, 0}) },
+            { "Velocity", new NVector(new int[]{1, 1}) }
+        };
 
+        var cmd = Ioc.Resolve<ICommand>("Commands.MoveCommand", movingObjectDict);
+
+        Assert.NotNull(cmd);
+        cmd.Execute();
     }
 }

@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using App;
+using App.Scopes;
 
 
 
@@ -9,8 +10,8 @@ public class RegisterIoCDependencyMoveCommand : ICommand
 {
     public void Execute()
     {
-        var registerMoveCommandDependency = Ioc.Resolve<ICommand>(
-            "Ioc.Register",
+        var registerMoveCommandDependency = Ioc.Resolve<App.ICommand>(
+            "IoC.Register",
             "Commands.MoveCommand",
             (object[] args) =>
             {
