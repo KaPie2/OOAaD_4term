@@ -6,7 +6,7 @@ using SpaceBattle.Lib;
 
 namespace SpaceBattle.Lib.Tests;
 
-public class RegisterIoCDependencyMoveCommandTests 
+public class RegisterIoCDependencyMoveCommandTests
 {
     public RegisterIoCDependencyMoveCommandTests()
     {
@@ -22,13 +22,13 @@ public class RegisterIoCDependencyMoveCommandTests
         (object[] args) =>
         {
             var dict = (IDictionary<string, object>)args[0];
-            
+
             var mock = new Mock<IMovingObject>();
             if (dict.ContainsKey("Position"))
                 mock.Setup(m => m.Position).Returns((NVector)dict["Position"]);
             if (dict.ContainsKey("Velocity"))
                 mock.Setup(m => m.Velocity).Returns((NVector)dict["Velocity"]);
-                
+
             return mock.Object;
         }
         ).Execute();
