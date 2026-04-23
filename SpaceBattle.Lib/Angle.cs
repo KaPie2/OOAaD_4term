@@ -10,7 +10,7 @@ public class Angle
 
     public static Angle operator +(Angle a, Angle b)
     {
-        var res = new int[]{(a.Degrees[0] + b.Degrees[0]) % 8, 8};
+        var res = new int[] { (a.Degrees[0] + b.Degrees[0]) % 8, 8 };
         return new Angle(res);
     }
 
@@ -36,5 +36,10 @@ public class Angle
         if (a.Degrees[0] % 8 == b.Degrees[0] % 8) return false;
 
         return true;
+    }
+
+    public override int GetHashCode()
+    {
+        throw new NotImplementedException();
     }
 }
