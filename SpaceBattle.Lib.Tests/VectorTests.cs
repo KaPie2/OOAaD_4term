@@ -3,7 +3,7 @@ using System.Reflection;
 using Moq;
 using Vector;
 
-namespace VectorTests;
+namespace SpaceBattle.Lib.Tests;
 
 public class VectorTests
 {
