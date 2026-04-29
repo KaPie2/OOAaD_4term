@@ -1,4 +1,4 @@
-﻿namespace Vector;
+﻿namespace SpaceBattle.Lib;
 
 public class NVector
 {
