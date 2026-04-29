@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 using Moq;
-using Vector;
+using SpaceBattle.Lib;
 
 namespace SpaceBattle.Lib.Tests;
 
