@@ -2,21 +2,15 @@ namespace SpaceBattle.Lib;
 
 public class Angle
 {
-    public int Degrees { get; }
-    public int Denominator { get; }
+    public int[] Degrees { get; set; }
     public Angle(int[] degrees)
     {
-        Degrees = degrees[0];
-        Denominator = degrees[1];
+        Degrees = degrees;
     }
 
     public static Angle operator +(Angle a, Angle b)
     {
-        if (a.Denominator != b.Denominator)
-        {
-            throw new ArgumentException("angles not compatible");
-        }
-        var res = new int[] { (a.Degrees + b.Degrees) % a.Denominator, a.Denominator };
+        var res = new int[] { (a.Degrees[0] + b.Degrees[0]) % 8, 8 };
         return new Angle(res);
     }
 
@@ -27,19 +21,21 @@ public class Angle
         if (GetType() != obj.GetType()) return false;
         Angle a = (Angle)obj;
 
-        return a.Denominator == Denominator && a.Degrees % Denominator == Degrees % Denominator;
+        return a.Degrees[0] % 8 == Degrees[0] % 8;
     }
 
     public static bool operator ==(Angle a, Angle b)
     {
-        if (a.Denominator != b.Denominator || a.Degrees % a.Denominator != b.Degrees % b.Denominator) return false;
+        if (a.Degrees[0] % 8 != b.Degrees[0] % 8) return false;
 
         return true;
     }
 
     public static bool operator !=(Angle a, Angle b)
     {
-        return !(a == b);
+        if (a.Degrees[0] % 8 == b.Degrees[0] % 8) return false;
+
+        return true;
     }
 
     public override int GetHashCode()
