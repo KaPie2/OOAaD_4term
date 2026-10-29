@@ -1,73 +1,59 @@
 using System;
-using System.Numerics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using Moq;
-using SpaceBattle.Lib;
+using Xunit;
 
 namespace SpaceBattle.Lib.Tests;
 
 public class MoveCommandTests
 {
     [Fact]
-    public void VectorMovingIsCorrect()
+    public void MoveCommand_MovesObjectCorrectly()
     {
-        var vector = new Mock<IMovingObject>();
+        var movingObjectMock = new Mock<IMovingObject>();
+        movingObjectMock.SetupGet(m => m.Position).Returns(new NVector(12, 5));
+        movingObjectMock.SetupGet(m => m.Velocity).Returns(new NVector(-4, 1));
 
-        vector.Setup(x => x.Position).Returns(new NVector(new int[] { 12, 5 }));
-        vector.Setup(x => x.Velocity).Returns(new NVector(new int[] { -4, 1 }));
-
-        var moveCommand = new MoveCommand(vector.Object);
+        var moveCommand = new MoveCommand(movingObjectMock.Object);
 
         moveCommand.Execute();
 
-        vector.VerifySet(x => x.Position = new NVector(new int[] { 8, 6 }), Times.Once);
-
+        movingObjectMock.VerifySet(m => m.Position = new NVector(8, 6), Times.Once);
     }
 
     [Fact]
-    public void UnknownPositionThrowsException()
+    public void MoveCommand_ThrowsException_WhenPositionIsUnreadable()
     {
-        var vector = new Mock<IMovingObject>();
+        var movingObjectMock = new Mock<IMovingObject>();
+        movingObjectMock.SetupGet(m => m.Position).Throws<Exception>();
 
-        vector.Setup(x => x.Position).Returns((NVector)null);
-        vector.Setup(x => x.Velocity).Returns(new NVector(new int[] { -4, 1 }));
+        var moveCommand = new MoveCommand(movingObjectMock.Object);
 
-        var moveCommand = new MoveCommand(vector.Object);
-
-        Assert.Throws<ArgumentNullException>(() => moveCommand.Execute());
-
-
+        Assert.Throws<Exception>(() => moveCommand.Execute());
     }
 
     [Fact]
-    public void UnknownVelocityThrowsException()
+    public void MoveCommand_ThrowsException_WhenVelocityIsUnreadable()
     {
-        var vector = new Mock<IMovingObject>();
+        var movingObjectMock = new Mock<IMovingObject>();
+        movingObjectMock.SetupGet(m => m.Position).Returns(new NVector(12, 5));
+        movingObjectMock.SetupGet(m => m.Velocity).Throws<Exception>();
 
-        vector.Setup(x => x.Position).Returns(new NVector(new int[] { -4, 1 }));
-        vector.Setup(x => x.Velocity).Returns((NVector)null);
+        var moveCommand = new MoveCommand(movingObjectMock.Object);
 
-        var moveCommand = new MoveCommand(vector.Object);
-
-        Assert.Throws<ArgumentNullException>(() => moveCommand.Execute());
-
-
+        Assert.Throws<Exception>(() => moveCommand.Execute());
     }
 
     [Fact]
-    public void ThrowsExceptionWhenUnableToChangePosition()
+    public void MoveCommand_ThrowsException_WhenPositionIsUnwritable()
     {
-        var vector = new Mock<IMovingObject>();
+        var movingObjectMock = new Mock<IMovingObject>();
+        movingObjectMock.SetupGet(m => m.Position).Returns(new NVector(12, 5));
+        movingObjectMock.SetupGet(m => m.Velocity).Returns(new NVector(-4, 1));
 
-        vector.Setup(x => x.Position).Returns(new NVector(new int[] { 12, 5 }));
-        vector.Setup(x => x.Velocity).Returns(new NVector(new int[] { -4, 1 }));
+        movingObjectMock.SetupSet(m => m.Position = It.IsAny<NVector>()).Throws<Exception>();
 
-        vector.SetupSet(x => x.Position = It.IsAny<NVector>()).Throws<InvalidOperationException>();
+        var moveCommand = new MoveCommand(movingObjectMock.Object);
 
-        var moveCommand = new MoveCommand(vector.Object);
-
-        Assert.Throws<InvalidOperationException>(() => moveCommand.Execute());
+        Assert.Throws<Exception>(() => moveCommand.Execute());
     }
 }

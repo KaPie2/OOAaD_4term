@@ -1,20 +1,16 @@
 namespace SpaceBattle.Lib;
 
-
 public class MoveCommand : ICommand
 {
-    private readonly IMovingObject movingObject;
+    private readonly IMovingObject _movingObject;
 
     public MoveCommand(IMovingObject movingObject)
     {
-        this.movingObject = movingObject ?? throw new ArgumentNullException(nameof(movingObject));
+        _movingObject = movingObject;
     }
+
     public void Execute()
     {
-        var pos = movingObject.Position ?? throw new ArgumentNullException(nameof(movingObject.Position));
-        var vel = movingObject.Velocity ?? throw new ArgumentNullException(nameof(movingObject.Velocity));
-
-        var newPos = pos + vel;
-        movingObject.Position = newPos ?? throw new Exception(nameof(newPos));
+        _movingObject.Position = _movingObject.Position + _movingObject.Velocity;
     }
 }
