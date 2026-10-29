@@ -5,7 +5,7 @@ public class NVector
     private readonly int[] _coords;
 
     public int Size => _coords.Length;
-    
+
     public int this[int index] => _coords[index];
 
     public NVector(params int[] coords)

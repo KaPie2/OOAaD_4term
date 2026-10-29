@@ -79,9 +79,9 @@ public class VectorTests
     public void HashCodeTest()
     {
         var vector = new NVector(1, 2, 3);
-        
+
         var exception = Record.Exception(() => vector.GetHashCode());
-        
+
         Assert.Null(exception);
     }
 }
