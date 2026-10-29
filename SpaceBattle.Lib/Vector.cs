@@ -2,26 +2,28 @@
 
 public class NVector
 {
-    public int[] coords { get; set; }
-    public int dim { get; set; }
+    private readonly int[] _coords;
 
-    public NVector(int[] coords)
+    public int Size => _coords.Length;
+
+    public int this[int index] => _coords[index];
+
+    public NVector(params int[] coords)
     {
-        this.coords = coords;
-        this.dim = coords.Length;
+        _coords = (int[])coords.Clone();
     }
 
     public static NVector operator +(NVector a, NVector b)
     {
-        if (a.dim != b.dim)
+        if (a.Size != b.Size)
         {
-            throw new ArgumentException("dimensions not compatible");
+            throw new ArgumentException("Dimensions are not compatible");
         }
 
-        int[] res = new int[a.dim];
-        for (int i = 0; i < a.dim; i++)
+        int[] res = new int[a.Size];
+        for (int i = 0; i < a.Size; i++)
         {
-            res[i] = a.coords[i] + b.coords[i];
+            res[i] = a[i] + b[i];
         }
 
         return new NVector(res);
@@ -29,39 +31,32 @@ public class NVector
 
     public static bool operator ==(NVector a, NVector b)
     {
+        if (ReferenceEquals(a, b)) return true;
+        if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return false;
 
-        if (a.dim != b.dim) return false;
-        if (!a.coords.SequenceEqual(b.coords)) return false;
-
-        return true;
+        return a.Equals(b);
     }
 
     public static bool operator !=(NVector a, NVector b)
     {
-
-        if (a.coords.SequenceEqual(b.coords)) return false;
-
-        return true;
+        return !(a == b);
     }
-
-
-
 
     public override bool Equals(object? obj)
     {
-        if (obj == null) return false;
+        if (obj is not NVector other) return false;
+        if (this.Size != other.Size) return false;
 
-        if (GetType() != obj.GetType()) return false;
-        NVector other = (NVector)obj;
-
-        if (this.dim != other.dim) return false;
-        if (!this.coords.SequenceEqual(other.coords)) return false;
-
-        return true;
+        return _coords.SequenceEqual(other._coords);
     }
 
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        var hash = new HashCode();
+        foreach (var coord in _coords)
+        {
+            hash.Add(coord);
+        }
+        return hash.ToHashCode();
     }
 }
