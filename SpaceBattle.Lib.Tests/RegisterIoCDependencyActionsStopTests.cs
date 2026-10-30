@@ -9,6 +9,24 @@ public class RegisterIoCDependencyActionsStopTests
     public RegisterIoCDependencyActionsStopTests()
     {
         new InitCommand().Execute();
+
+        var testScope = Ioc.Resolve<object>("IoC.Scope.Create");
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", testScope).Execute();
+
+        var mockReceiver = new Mock<ICommandReceiver>();
+        Ioc.Resolve<App.ICommand>("IoC.Register", "Game.CommandReceiver",
+            (object[] _) => mockReceiver.Object).Execute();
+
+        Ioc.Resolve<App.ICommand>("IoC.Register", "Commands.Move",
+            (object[] args) => new Mock<ICommand>().Object).Execute();
+
+        Ioc.Resolve<App.ICommand>("IoC.Register", "Commands.Send",
+            (object[] args) =>
+            {
+                var cmd = (ICommand)args[0];
+                var rec = (ICommandReceiver)args[1];
+                return new SendCommand(cmd, rec);
+            }).Execute();
     }
 
     [Fact]
