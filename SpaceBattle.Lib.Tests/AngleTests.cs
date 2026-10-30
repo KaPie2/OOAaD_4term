@@ -14,7 +14,7 @@ public class AngleTests
         var angle2 = new Angle(new int[] { 7, 8 });
 
         Angle res = angle1 + angle2;
-        Assert.Equal(new int[] { 4, 8 }, res.Degrees);
+        Assert.Equal(new int[] { 4, 8 }, new int[] { res.Degrees, res.Denominator });
     }
 
     [Fact]
