@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -26,4 +26,12 @@
     <ProjectReference Include="..\SpaceBattle.Lib\SpaceBattle.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="core">
+      <HintPath>..\Common\core.dll</HintPath>
+    </Reference>
+    <Reference Include="scopes">
+      <HintPath>..\Common\scopes.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
