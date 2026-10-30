@@ -9,7 +9,7 @@ public class RegisterIoCDependencyMacroMoveRotateTests
     public RegisterIoCDependencyMacroMoveRotateTests()
     {
         new InitCommand().Execute();
-        
+
         var newScope = Ioc.Resolve<object>("IoC.Scope.Create");
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", newScope).Execute();
     }
